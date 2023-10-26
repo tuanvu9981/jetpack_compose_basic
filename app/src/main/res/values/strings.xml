@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">JetPackComposeBasic</string>
+    <string name="github_action">This is the name you want to give to the action. This name is displayed on your Github Repo under actions. Give it a name that make sense to you and your team.</string>
 </resources>
