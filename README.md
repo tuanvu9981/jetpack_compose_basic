@@ -7,11 +7,15 @@
 
 
 ### Composable and special function
-1. **stringResource(int id)**: 
+1. **stringResource(int id)**: Render text 
 - Nhận id (int) làm tham số đầu vào, và trả lại giá trị xâu ký tự (Lưu ở app/src/res/values/strings.xml)
 - Truyền **R.string.<key>** vào làm giá trị **id**
 
-2.  
+2. **painterResource(int id)**: Render image 
+- Nhận id (int) làm tham số đầu vào, và trả lại giá trị xâu ký tự (Lưu ở app/src/res/drawable)
+- Truyền **R.drawable.<image_name_without_extension>** làm giá trị id
+
+3.  
 
 ### Run to show 
 1. With preview mode
@@ -33,3 +37,6 @@ version 34 or later of the Android APIs**.
 1. Nên đặt tên cho các kiểu biến số, các kiểu font chữ, màu sắc ... ở chung 1 chỗ theo kiểu khai báo các biến số và giá trị của chúng, 
 dễ import, dễ sửa đổi và tăng tính đồng nhất. 
 2. 
+
+### Libraries 
+1. [COIL](https://github.com/coil-kt/coil#jetpack-compose): A library to render images URL, allow placeholder image and error handling
