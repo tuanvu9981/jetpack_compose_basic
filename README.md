@@ -36,7 +36,8 @@ version 34 or later of the Android APIs**.
 ### Project best practices.
 1. Nên đặt tên cho các kiểu biến số, các kiểu font chữ, màu sắc ... ở chung 1 chỗ theo kiểu khai báo các biến số và giá trị của chúng, 
 dễ import, dễ sửa đổi và tăng tính đồng nhất. 
-2. 
+2. Phần split để xem preview có "Allow interactive mode", giúp hiểu rõ hơn một button khi được click vào sẽ có animation ra sao.
+3. 
 
 ### Libraries 
 1. [COIL](https://github.com/coil-kt/coil#jetpack-compose): A library to render images URL, allow placeholder image and error handling

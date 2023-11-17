@@ -63,6 +63,7 @@ dependencies {
     // third party library to show Image URL
     implementation("io.coil-kt:coil-compose:2.4.0")
     implementation("androidx.activity:activity-ktx:1.8.1")
+    implementation("com.google.firebase:firebase-inappmessaging-ktx:20.4.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
