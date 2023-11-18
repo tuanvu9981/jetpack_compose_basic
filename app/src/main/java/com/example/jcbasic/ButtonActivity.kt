@@ -15,16 +15,20 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.TextStyle
@@ -39,6 +43,7 @@ class ButtonActivity : ComponentActivity() {
             JetPackComposeBasicTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
+                    // định nghĩa style cho cả ứng dụng
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
@@ -54,15 +59,48 @@ fun ColButtonContainer(){
     Column(modifier = Modifier.padding(15.dp)){
 
         SimpleButton()
-        Spacer(modifier = Modifier.height(10.dp))
 
         DisableButton()
-        Spacer(modifier = Modifier.height(10.dp))
+
         AddToCartButton()
 
-        Spacer(modifier = Modifier.height(10.dp))
         StrokeButton()
 
+        ElevationSimpleButton()
+
+        OutlinedButton(onClick = { /*TODO*/ }) {
+            Text(text="Outlined ボタン")
+        }
+
+        TextButton(onClick = { /*TODO*/ }) {
+            Text(text="Text Button")
+        }
+
+        IconButton(onClick = { /*TODO*/ }) {
+            Icon(imageVector = Icons.Default.Phone, contentDescription = "Calling")
+        }
+
+
+    }
+}
+
+@Composable()
+fun ElevationSimpleButton(){
+    Button(
+        onClick = {},
+        colors = ButtonDefaults.buttonColors(
+            containerColor = Color.White,
+            contentColor = Color.Black,
+        ),
+        elevation = ButtonDefaults.buttonElevation(
+            defaultElevation = 10.dp,
+            pressedElevation = 15.dp,
+            disabledElevation = 0.dp,
+        )
+        // độ nổi bóng (shadow) so với bề mặt xung quanh, mặc định 10dp
+
+    ){
+        Text(text="Elevation Button")
     }
 }
 
