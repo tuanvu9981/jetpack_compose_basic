@@ -5,6 +5,8 @@ import androidx.activity.ComponentActivity
 import com.example.jcbasic.ui.theme.JetPackComposeBasicTheme
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 
@@ -12,7 +14,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Phone
@@ -29,8 +33,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import okhttp3.internal.wait
@@ -56,31 +63,99 @@ class ButtonActivity : ComponentActivity() {
 
 @Composable
 fun ColButtonContainer(){
-    Column(modifier = Modifier.padding(15.dp)){
+    Column(modifier = Modifier
+        .padding(15.dp)
+        .clickable {
+            // Modifier có method clickable
+            // Cho phép bất kỳ Composable nào có thể click được
+            // Image, Text, ... đều có thể clickable
+        }){
 
-        SimpleButton()
+        Row {
+            SimpleButton()
+            Spacer(modifier = Modifier.width(10.dp))
+            DisableButton()
+        }
+        Spacer(modifier = Modifier.height(10.dp))
 
-        DisableButton()
+        Row {
+            AddToCartButton()
+            Spacer(modifier = Modifier.width(10.dp))
+            StrokeButton()
+        }
+        Spacer(modifier = Modifier.height(10.dp))
 
-        AddToCartButton()
+        Row {
+            ElevationSimpleButton()
+            Spacer(modifier = Modifier.width(10.dp))
+            OutlinedButton(onClick = { /*TODO*/ }) {
+                Text(text="Outlined ボタン")
+            }
+        }
+        Spacer(modifier = Modifier.height(10.dp))
 
-        StrokeButton()
+        Row {
+            TextButton(onClick = { /*TODO*/ }) {
+                Text(text="Text Button")
+            }
 
-        ElevationSimpleButton()
-
-        OutlinedButton(onClick = { /*TODO*/ }) {
-            Text(text="Outlined ボタン")
+            IconButton(onClick = { /*TODO*/ }) {
+                Icon(imageVector = Icons.Default.Phone, contentDescription = "Calling")
+            }
         }
 
-        TextButton(onClick = { /*TODO*/ }) {
-            Text(text="Text Button")
+        OnClickButton()
+        PressTypesButton()
+
+    }
+}
+
+@Composable()
+fun PressTypesButton(){
+    var textContent = remember {
+        mutableStateOf("")
+    }
+    Column{
+        Text("Text content: ${textContent.value}", style = TextStyle(color = Color.Green))
+        Text(text = "Click to see", modifier = Modifier.pointerInput(Unit){
+            detectTapGestures(
+                onDoubleTap = {
+                    textContent.value = "Double Tap"
+                },
+
+                onLongPress = {
+                    textContent.value = "Long Press"
+                },
+
+                onPress = {
+                    textContent.value = "Press"
+                },
+
+                onTap = {
+                    textContent.value = "Tap"
+                }
+            )
+        })
+    }
+
+}
+
+@Composable()
+fun OnClickButton(){
+    var count = remember {
+        mutableStateOf(0)
+    }
+    Row() {
+        Button(
+            onClick = {
+                count.value++
+            },
+            shape = RoundedCornerShape(4.dp)
+        ) {
+            Text(text="Click to increase")
         }
-
-        IconButton(onClick = { /*TODO*/ }) {
-            Icon(imageVector = Icons.Default.Phone, contentDescription = "Calling")
-        }
-
-
+        Spacer(modifier = Modifier.width(10.dp))
+        Text(text="Clicked times: ${count.value}")
     }
 }
 
