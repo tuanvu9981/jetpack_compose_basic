@@ -13,11 +13,16 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxColors
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
@@ -131,13 +136,103 @@ fun IconRadioButton(){
 }
 
 @Composable
+fun RadioButtonList() {
+    val radioOptions = listOf("Option 1", "Option 2", "Option 3")
+    var selectedOption by remember { mutableStateOf(radioOptions[0]) }
+
+    Column {
+        radioOptions.forEach { option ->
+            Row(
+                Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                RadioButton(
+                    selected = (option == selectedOption),
+                    onClick = { selectedOption = option },
+                    colors = RadioButtonDefaults.colors(
+                        selectedColor = Color.Red,
+                        unselectedColor = Color.Gray
+                    )
+                )
+                Text(
+                    text = option,
+                    modifier = Modifier.padding(start = 8.dp),
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun PureCheckboxButton(){
+    Column {
+        Checkbox(
+            checked = true,
+            onCheckedChange = {},
+            colors = CheckboxDefaults.colors(
+                checkedColor = Color.Blue,
+                uncheckedColor = Color.Gray,
+            )
+        )
+        Checkbox(
+            checked = false,
+            onCheckedChange = {},
+            colors = CheckboxDefaults.colors(
+                checkedColor = Color.Blue,
+                uncheckedColor = Color.Gray,
+            )
+        )
+    }
+}
+
+@Composable
+fun CheckboxWithText(){
+    var isChecked by remember {
+        mutableStateOf(false)
+    };
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.selectable(
+            selected = isChecked,
+            onClick = { isChecked = !isChecked },
+            role = Role.RadioButton
+        )
+    ) {
+        Checkbox(
+            checked = isChecked,
+            onCheckedChange = null,
+            colors = CheckboxDefaults.colors(
+                checkedColor = Color.Red,
+                uncheckedColor = Color.Black
+            )
+        )
+        Text(text = "Manually", modifier = Modifier.padding(start = 10.dp) )
+        Text(text = " ${isChecked}" )
+    }
+}
+
+@Composable
 fun RadioCheckboxColumn(){
     Column(modifier = Modifier.padding(15.dp)){
-        PureRadioButton()
+        Row{
+            PureRadioButton()
+            Spacer(modifier = Modifier.width(10.dp))
+            RadioButtonList()
+        }
         Spacer(modifier = Modifier.height(10.dp))
-        RadioButtonWithText()
+        Row(verticalAlignment = Alignment.CenterVertically){
+            RadioButtonWithText()
+            Spacer(modifier = Modifier.width(10.dp))
+            IconRadioButton()
+        }
+
         Spacer(modifier = Modifier.height(10.dp))
-        IconRadioButton()
+
+        Row(verticalAlignment = Alignment.CenterVertically){
+            PureCheckboxButton()
+            Spacer(modifier = Modifier.width(10.dp))
+            CheckboxWithText()
+        }
     }
 }
 
