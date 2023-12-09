@@ -1,14 +1,14 @@
 package com.example.jcbasic
 
+import android.graphics.drawable.Icon
 import android.os.Bundle
 import com.example.jcbasic.ui.theme.JetPackComposeBasicTheme
 import androidx.compose.ui.Modifier
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Icon
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -16,6 +16,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectable
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.RadioButtonDefaults
 import androidx.compose.material3.Text
@@ -86,7 +88,7 @@ fun PureRadioButton(){
 fun RadioButtonWithText(){
     var isSelected by remember {
         mutableStateOf(false)
-    }
+    };
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.selectable(
@@ -96,17 +98,35 @@ fun RadioButtonWithText(){
         )
     ) {
         RadioButton(
-            enabled = true,
             selected = isSelected,
-            onClick = null,
+            onClick = {},
             colors = RadioButtonDefaults.colors(
                 selectedColor = Color.Red,
                 unselectedColor = Color.Black,
                 disabledSelectedColor = Color.Gray,
             )
         )
-        Text(text = "Manually", modifier = Modifier.padding(start = 15.dp) )
+        Text(text = "Manually", modifier = Modifier.padding(start = 10.dp) )
         Text(text = " ${isSelected}" )
+    }
+}
+
+@Composable
+fun IconRadioButton(){
+    var isSelected by remember{
+        mutableStateOf(false)
+    }
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.selectable(
+            selected = isSelected,
+            onClick = {isSelected = !isSelected},
+            role = Role.RadioButton
+        )
+    ){
+        val iconRadio = if(isSelected) Icons.Default.CheckCircle else Icons.Filled.CheckCircle
+        Icon(iconRadio, contentDescription = null)
+        Text(text = "Radio Button $isSelected", modifier = Modifier.padding(start = 10.dp))
     }
 }
 
@@ -116,6 +136,8 @@ fun RadioCheckboxColumn(){
         PureRadioButton()
         Spacer(modifier = Modifier.height(10.dp))
         RadioButtonWithText()
+        Spacer(modifier = Modifier.height(10.dp))
+        IconRadioButton()
     }
 }
 
